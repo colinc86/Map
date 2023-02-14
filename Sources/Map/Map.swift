@@ -36,6 +36,12 @@ public struct Map<AnnotationItems: RandomAccessCollection, OverlayItems: RandomA
 
     let overlayItems: OverlayItems
     let overlayContent: (OverlayItems.Element) -> MapOverlay
+  
+    let willStartLoadingMap: (() -> Void)?
+    let didFinishLoadingMap: (() -> Void)?
+    let didFailLoadingMap: ((Error?) -> Void)?
+    let willStartRenderingMap: (() -> Void)?
+    let didFinishRenderingMap: ((Bool) -> Void)?
 
 }
 
@@ -54,7 +60,12 @@ extension Map {
         annotationItems: AnnotationItems,
         @MapAnnotationBuilder annotationContent: @escaping (AnnotationItems.Element) -> MapAnnotation,
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.usesRegion = true
         self._coordinateRegion = coordinateRegion
@@ -69,6 +80,11 @@ extension Map {
         self.annotationContent = annotationContent
         self.overlayItems = overlayItems
         self.overlayContent = overlayContent
+        self.willStartLoadingMap = willStartLoadingMap
+        self.didFinishLoadingMap = didFinishLoadingMap
+        self.didFailLoadingMap = didFailLoadingMap
+        self.willStartRenderingMap = willStartRenderingMap
+        self.didFinishRenderingMap = didFinishRenderingMap
     }
 
     public init(
@@ -80,7 +96,12 @@ extension Map {
         annotationItems: AnnotationItems,
         @MapAnnotationBuilder annotationContent: @escaping (AnnotationItems.Element) -> MapAnnotation,
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.usesRegion = false
         self._coordinateRegion = .constant(.init())
@@ -95,6 +116,11 @@ extension Map {
         self.annotationContent = annotationContent
         self.overlayItems = overlayItems
         self.overlayContent = overlayContent
+      self.willStartLoadingMap = willStartLoadingMap
+      self.didFinishLoadingMap = didFinishLoadingMap
+      self.didFailLoadingMap = didFailLoadingMap
+      self.willStartRenderingMap = willStartRenderingMap
+      self.didFinishRenderingMap = didFinishRenderingMap
     }
 
     @available(macOS 11, *)
@@ -109,7 +135,12 @@ extension Map {
         annotationItems: AnnotationItems,
         @MapAnnotationBuilder annotationContent: @escaping (AnnotationItems.Element) -> MapAnnotation,
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.usesRegion = true
         self._coordinateRegion = coordinateRegion
@@ -129,6 +160,11 @@ extension Map {
         self.annotationContent = annotationContent
         self.overlayItems = overlayItems
         self.overlayContent = overlayContent
+      self.willStartLoadingMap = willStartLoadingMap
+      self.didFinishLoadingMap = didFinishLoadingMap
+      self.didFailLoadingMap = didFailLoadingMap
+      self.willStartRenderingMap = willStartRenderingMap
+      self.didFinishRenderingMap = didFinishRenderingMap
     }
 
     @available(macOS 11, *)
@@ -142,7 +178,12 @@ extension Map {
         annotationItems: AnnotationItems,
         @MapAnnotationBuilder annotationContent: @escaping (AnnotationItems.Element) -> MapAnnotation,
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.usesRegion = false
         self._coordinateRegion = .constant(.init())
@@ -162,6 +203,11 @@ extension Map {
         self.annotationContent = annotationContent
         self.overlayItems = overlayItems
         self.overlayContent = overlayContent
+      self.willStartLoadingMap = willStartLoadingMap
+      self.didFinishLoadingMap = didFinishLoadingMap
+      self.didFailLoadingMap = didFailLoadingMap
+      self.willStartRenderingMap = willStartRenderingMap
+      self.didFinishRenderingMap = didFinishRenderingMap
     }
 
 }
@@ -180,7 +226,12 @@ extension Map {
         annotationItems: AnnotationItems,
         @MapAnnotationBuilder annotationContent: @escaping (AnnotationItems.Element) -> MapAnnotation,
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.usesRegion = true
         self._coordinateRegion = coordinateRegion
@@ -200,6 +251,11 @@ extension Map {
         self.annotationContent = annotationContent
         self.overlayItems = overlayItems
         self.overlayContent = overlayContent
+      self.willStartLoadingMap = willStartLoadingMap
+      self.didFinishLoadingMap = didFinishLoadingMap
+      self.didFailLoadingMap = didFailLoadingMap
+      self.willStartRenderingMap = willStartRenderingMap
+      self.didFinishRenderingMap = didFinishRenderingMap
     }
 
     public init(
@@ -212,7 +268,12 @@ extension Map {
         annotationItems: AnnotationItems,
         @MapAnnotationBuilder annotationContent: @escaping (AnnotationItems.Element) -> MapAnnotation,
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.usesRegion = false
         self._coordinateRegion = .constant(.init())
@@ -232,6 +293,11 @@ extension Map {
         self.annotationContent = annotationContent
         self.overlayItems = overlayItems
         self.overlayContent = overlayContent
+      self.willStartLoadingMap = willStartLoadingMap
+      self.didFinishLoadingMap = didFinishLoadingMap
+      self.didFailLoadingMap = didFailLoadingMap
+      self.willStartRenderingMap = willStartRenderingMap
+      self.didFinishRenderingMap = didFinishRenderingMap
     }
 
 }
@@ -259,7 +325,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             return ViewMapAnnotation(annotation: annotation) {}
         },
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -270,7 +341,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlayItems,
-            overlayContent: overlayContent
+            overlayContent: overlayContent,
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -286,7 +362,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             return ViewMapAnnotation(annotation: annotation) {}
         },
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -297,7 +378,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlayItems,
-            overlayContent: overlayContent
+            overlayContent: overlayContent,
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -316,7 +402,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             return ViewMapAnnotation(annotation: annotation) {}
         },
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -328,7 +419,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlayItems,
-            overlayContent: overlayContent
+            overlayContent: overlayContent,
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -346,7 +442,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             return ViewMapAnnotation(annotation: annotation) {}
         },
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -358,7 +459,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlayItems,
-            overlayContent: overlayContent
+            overlayContent: overlayContent,
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -381,7 +487,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             return ViewMapAnnotation(annotation: annotation) {}
         },
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -393,7 +504,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlayItems,
-            overlayContent: overlayContent
+            overlayContent: overlayContent,
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -410,7 +526,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             return ViewMapAnnotation(annotation: annotation) {}
         },
         overlayItems: OverlayItems,
-        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay
+        @MapOverlayBuilder overlayContent: @escaping (OverlayItems.Element) -> MapOverlay,
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -422,7 +543,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>] {
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlayItems,
-            overlayContent: overlayContent
+            overlayContent: overlayContent,
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
 
     }
@@ -455,7 +581,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -466,7 +597,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             annotationItems: annotationItems,
             annotationContent: annotationContent,
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -484,7 +620,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -495,7 +636,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             annotationItems: annotationItems,
             annotationContent: annotationContent,
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -515,7 +661,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -527,7 +678,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             annotationItems: annotationItems,
             annotationContent: annotationContent,
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -547,7 +703,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -559,7 +720,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             annotationItems: annotationItems,
             annotationContent: annotationContent,
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -584,7 +750,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -596,7 +767,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             annotationItems: annotationItems,
             annotationContent: annotationContent,
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -615,7 +791,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -627,7 +808,12 @@ extension Map where OverlayItems == [IdentifiableObject<MKOverlay>] {
             annotationItems: annotationItems,
             annotationContent: annotationContent,
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -661,7 +847,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -672,7 +863,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -693,7 +889,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -704,7 +905,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -727,7 +933,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -739,7 +950,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -762,7 +978,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -774,7 +995,12 @@ extension Map where AnnotationItems == [IdentifiableObject<MKAnnotation>], Overl
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -804,7 +1030,12 @@ extension Map
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             coordinateRegion: coordinateRegion,
@@ -816,7 +1047,12 @@ extension Map
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 
@@ -838,7 +1074,12 @@ extension Map
             return RendererMapOverlay(overlay: overlay) { _, overlay in
                 MKOverlayRenderer(overlay: overlay)
             }
-        }
+        },
+        willStartLoadingMap: (() -> Void)? = nil,
+        didFinishLoadingMap: (() -> Void)? = nil,
+        didFailLoadingMap: ((Error?) -> Void)? = nil,
+        willStartRenderingMap: (() -> Void)? = nil,
+        didFinishRenderingMap: ((Bool) -> Void)? = nil
     ) {
         self.init(
             mapRect: mapRect,
@@ -850,7 +1091,12 @@ extension Map
             annotationItems: annotations.map(IdentifiableObject.init),
             annotationContent: { annotationContent($0.object) },
             overlayItems: overlays.map(IdentifiableObject.init),
-            overlayContent: { overlayContent($0.object) }
+            overlayContent: { overlayContent($0.object) },
+            willStartLoadingMap: willStartLoadingMap,
+            didFinishLoadingMap: didFinishLoadingMap,
+            didFailLoadingMap: didFailLoadingMap,
+            willStartRenderingMap: willStartRenderingMap,
+            didFinishRenderingMap: didFinishRenderingMap
         )
     }
 

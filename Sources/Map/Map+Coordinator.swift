@@ -244,6 +244,26 @@ extension Map {
         }
 
         // MARK: MKMapViewDelegate
+      
+      public func mapViewWillStartLoadingMap(_ mapView: MKMapView) {
+        view?.willStartLoadingMap?()
+      }
+      
+      public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        view?.didFinishLoadingMap?()
+      }
+      
+      public func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
+        view?.didFailLoadingMap?(error)
+      }
+      
+      public func mapViewWillStartRenderingMap(_ mapView: MKMapView) {
+        view?.willStartRenderingMap?()
+      }
+      
+      public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        view?.didFinishRenderingMap?(fullyRendered)
+      }
 
         public func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             guard !regionIsChanging else {
